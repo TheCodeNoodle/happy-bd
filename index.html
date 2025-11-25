@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Special Birthday Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pacifico', cursive;
+            background: #FFE66D;
+            background-image:
+                radial-gradient(circle at 20% 30%, #FF6B9D 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #4ECDC4 0%, transparent 50%),
+                radial-gradient(circle at 40% 70%, #A8E6CF 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, #FFB6D9 0%, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .lock-icon {
+                font-size: 50px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            .subtitle1 {
+                font-size: 1.4em;
+            }
+
+            .password-section {
+                padding: 30px 20px;
+            }
+
+            .riddle-box {
+                padding: 15px;
+            }
+
+            .riddle-text {
+                font-size: 1em;
+                line-height: 1.5;
+            }
+
+            input[type="text"] {
+                font-size: 1em;
+                padding: 12px 15px;
+                max-width: 100%;
+            }
+
+            button {
+                padding: 12px 35px;
+                font-size: 1em;
+            }
+
+            .birthday-content {
+                padding: 30px 20px;
+            }
+
+            .birthday-content h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            .cards-container {
+                min-height: 320px; /* reduced so it doesn't look overly long */
+                margin-bottom: 20px;
+            }
+
+            .card {
+                min-height: auto;
+                padding: 18px;
+            }
+
+            .card-text {
+                font-size: 1em;
+                line-height: 1.6;
+            }
+
+            .navigation {
+                margin-top: 25px;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+
+            .card-counter {
+                font-size: 1em;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lock-icon {
+                font-size: 45px;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .subtitle {
+                font-size: 0.85em;
+                margin-bottom: 20px;
+            }
+
+            .subtitle1 {
+                font-size: 1.2em;
+                margin-bottom: 20px;
+            }
+
+            .password-section {
+                padding: 25px 15px;
+            }
+
+            .riddle-box {
+                padding: 12px;
+                margin: 20px 0;
+            }
+
+            .riddle-text {
+                font-size: 0.9em;
+                line-height: 1.4;
+            }
+
+            input[type="text"] {
+                font-size: 0.9em;
+                padding: 10px 12px;
+                max-width: 100%;
+            }
+
+            button {
+                padding: 10px 30px;
+                font-size: 0.9em;
+                margin-top: 8px;
+            }
+
+            .birthday-content {
+                padding: 25px 15px;
+            }
+
+            .birthday-content h1 {
+                font-size: 1.6em;
+                margin-bottom: 18px;
+            }
+
+            .cards-container {
+                min-height: 260px; /* much smaller so mobile doesn't force huge empty space */
+                margin-bottom: 15px;
+            }
+
+            .card {
+                min-height: auto;
+                padding: 14px;
+            }
+
+            .card-text {
+                font-size: 0.95em;
+                line-height: 1.5;
+            }
+
+            .navigation {
+                margin-top: 20px;
+                gap: 12px;
+            }
+
+            .nav-btn {
+                padding: 9px 18px;
+                font-size: 0.85em;
+            }
+
+            .card-counter {
+                font-size: 0.95em;
+                margin-top: 12px;
+            }
+
+            .error-message, .hint-message {
+                font-size: 0.9em;
+                margin-top: 10px;
+            }
+        }
+
+        .lock-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: wiggle 0.5s ease-in-out infinite;
+            filter: drop-shadow(5px 5px 0px #FF6B9D);
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .password-section {
+            background: #FFFFFF;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 10px 10px 0px #FF6B9D, -10px -10px 0px #4ECDC4;
+            border: 5px dashed #A8E6CF;
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            color: #FF6B9D;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            transform: rotate(2deg);
+            text-shadow: 3px 3px 0px #4ECDC4;
+        }
+
+        .subtitle {
+            color: #6C5CE7;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .subtitle1 {
+            color: #6C5CE7;
+            font-size: 1.9em;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .password-input-group {
+            margin: 30px 0 10px 0;
+        }
+
+        .riddle-box {
+            background: #FFF9E6;
+            padding: 20px;
+            border-radius: 20px;
+            border: 4px dashed #6C5CE7;
+            margin: 25px 0;
+            box-shadow: 5px 5px 0px #A8E6CF;
+        }
+
+        .riddle-text {
+            font-size: 1.3em;
+            color: #6C5CE7;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border: 4px solid #FF6B9D;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 350px;
+            transition: all 0.3s;
+            text-align: center;
+            background: #FFF9E6;
+            font-family: 'Pacifico', cursive;
+            box-shadow: 5px 5px 0px #4ECDC4;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #6C5CE7;
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 8px 8px 0px #A8E6CF;
+        }
+
+        button {
+            padding: 15px 50px;
+            font-size: 1.2em;
+            background: #FF6B9D;
+            color: white;
+            border: 4px solid #6C5CE7;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 5px 5px 0px #4ECDC4;
+            margin-top: 10px;
+            font-family: 'Pacifico', cursive;
+            font-weight: bold;
+            transform: rotate(-1deg);
+        }
+
+        button:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 8px 8px 0px #A8E6CF;
+            background: #FF8FB3;
+        }
+
+        button:active {
+            transform: translateY(0px) rotate(0deg);
+            box-shadow: 2px 2px 0px #4ECDC4;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 1em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .hint-message {
+            color: #6C5CE7;
+            margin-top: 15px;
+            font-size: 1.1em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: bold;
+        }
+
+        .hint-message.show {
+            opacity: 1;
+        }
+
+        .birthday-content {
+            display: none;
+            background: #FFFFFF;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 10px 10px 0px #4ECDC4, -10px -10px 0px #FFB6D9;
+            border: 5px dotted #FF6B9D;
+            animation: fadeIn 1s ease-in;
+            transform: rotate(1deg);
+            max-width: 700px;
+            margin: 0 auto;
+            /* make it a column so nav flows under the cards naturally */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+            to { opacity: 1; transform: scale(1) rotate(1deg); }
+        }
+
+        .birthday-content h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            animation: bounce 1s ease-in-out infinite alternate;
+            color: #6C5CE7;
+            text-shadow: 4px 4px 0px #FFE66D;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px) rotate(-2deg); }
+            to { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .cards-container {
+            position: relative;
+            width: 100%;
+            /* remove a large fixed min-height so the content controls height */
+            min-height: 0;
+            margin-bottom: 20px;
+            /* keep perspective if you use 3D transforms; it's harmless when cards are relative */
+            perspective: 1000px;
+        }
+
+        /* Make cards normal flow elements (not absolute) so the container grows with them */
+        .card {
+            /* changed from absolute to relative so cards occupy normal flow on mobile and small screens */
+            position: relative;
+            width: 100%;
+            background: #FFF9E6;
+            border: 4px solid #FF6B9D;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 8px 8px 0px #4ECDC4;
+            transition: all 0.5s ease;
+            /* make card a column flex container so text wraps naturally */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.98);
+        }
+
+        /* Keep only the active card visible; hidden cards are removed from layout to avoid overlaps */
+        .card.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+            z-index: 10;
+            display: flex;
+        }
+
+        .card.hidden {
+            display: none; /* hide non-active cards so the container height matches the active one */
+        }
+
+        .card-text {
+            font-size: 1.2em;
+            color: #6C5CE7;
+            line-height: 1.8;
+            font-weight: normal;
+            /* allow the paragraph to shrink/wrap inside a flex container */
+            min-width: 0;
+            width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            background: #4ECDC4;
+            color: white;
+            border: 4px solid #6C5CE7;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 5px 5px 0px #FF6B9D;
+            font-family: 'Pacifico', cursive;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 7px 7px 0px #FF6B9D;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .card-counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #FF6B9D;
+            font-weight: bold;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="password-section" id="passwordSection">
+            <div class="lock-icon">🔒</div>
+            <h1>Hola Twinkie!!</h1>
+            <p class="subtitle1">Here's a corner of the internet made just for u!</p>
+            <p class="subtitle">Solve the riddle to unlock your birthday surprise!</p>
+
+            <div class="riddle-box">
+                <p class="riddle-text">I show up when candles glow,<br>I'm sliced at parties, row by row.<br>Frosted, layered, sweet delight —<br>What am I on a birthday night?</p>
+            </div>
+
+            <div class="password-input-group">
+                <input type="text" id="passwordInput" placeholder="Type your answer..." onkeypress="handleKeyPress(event)">
+                <div class="error-message" id="errorMessage">❌ Not quite! Try again!</div>
+                <div class="hint-message" id="hintMessage">💡 Hint: It's something sweet you eat at birthdays!</div>
+            </div>
+
+            <button onclick="checkPassword()">Unlock 🎁</button>
+        </div>
+
+        <div class="birthday-content" id="birthdayContent">
+            <h1>🎉 Happy Birthday Malak! 🎉</h1>
+
+            <div class="cards-container" id="cardsContainer">
+                <div class="card active" data-index="0">
+                    <p class="card-text">I don't think u fully realize how much u've helped me, or how deeply ur presence has touched my life lately. Thank u for being someone i can trust, someone who understands me even when i don't make sense, and someone who genuinely cares. U're a walking angel, one of the rare people who make the world feel lighter just by being in it.</p>
+                </div>
+                <div class="card hidden" data-index="1">
+                    <p class="card-text">On ur birthday, i just want to wish u everything good that life can possibly offer. U deserve success, peace, comfort and a kind of happiness that stays, a happiness that finds you even on the quiet days. I hope this year opens doors u never expected and fills ur days with moments u'll look back at with a smile.</p>
+                </div>
+                <div class="card hidden" data-index="2">
+                    <p class="card-text">And about ur dreams and ur career. Please never doubt yourself, i'm your biggest fan. I'll always cheer for u, support u, and believe in u, no matter where life takes us or how many paths we end up walking. u'll always have me rooting for u. ❤️</p>
+                </div>
+                <div class="card hidden" data-index="3">
+                    <p class="card-text">🎂✨ Happy 17th Birthday Malak! ✨🎂<br><br>Here's to an incredible year ahead filled with joy, adventure, and all your dreams coming true! 🎉🎈</p>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousCard()" disabled>← Previous</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextCard()">Next →</button>
+            </div>
+
+            <div class="card-counter" id="cardCounter">Card 1 of 4</div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = ["cake", "a cake"]; // Riddle answer
+        let currentCardIndex = 0;
+        const totalCards = 4;
+        let wrongAttempts = 0;
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const hintMessage = document.getElementById('hintMessage');
+            const userAnswer = input.value.trim().toLowerCase();
+
+            if (correctAnswers.includes(userAnswer)) {
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('birthdayContent').style.display = 'flex';
+                createConfetti();
+                updateCardDisplay();
+            } else {
+                wrongAttempts++;
+
+                if (wrongAttempts >= 2) {
+                    // Show hint after 2 wrong attempts
+                    hintMessage.classList.add('show');
+                    errorMessage.classList.remove('show');
+                } else {
+                    errorMessage.classList.add('show');
+                }
+
+                input.value = '';
+                input.style.borderColor = '#e74c3c';
+
+                setTimeout(() => {
+                    if (wrongAttempts < 2) {
+                        errorMessage.classList.remove('show');
+                    }
+                    input.style.borderColor = '#FF6B9D';
+                }, 2000);
+            }
+        }
+
+        function updateCardDisplay() {
+            const cards = document.querySelectorAll('.card');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const counter = document.getElementById('cardCounter');
+
+            cards.forEach((card, index) => {
+                if (index === currentCardIndex) {
+                    card.classList.add('active');
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.remove('active');
+                    card.classList.add('hidden');
+                }
+            });
+
+            prevBtn.disabled = currentCardIndex === 0;
+            nextBtn.disabled = currentCardIndex === totalCards - 1;
+            counter.textContent = `Card ${currentCardIndex + 1} of ${totalCards}`;
+        }
+
+        function nextCard() {
+            if (currentCardIndex < totalCards - 1) {
+                currentCardIndex++;
+                updateCardDisplay();
+                createMiniConfetti();
+            }
+        }
+
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                updateCardDisplay();
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        function createMiniConfetti() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confetti.style.width = Math.random() * 8 + 4 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 2000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
